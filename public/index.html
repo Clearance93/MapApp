@@ -8,16 +8,55 @@
   <meta name="description" content="A MEAN stack app using Google Map API">
   <meta name="viewport" content="width=device-width, inital-scale=1">
 
+  <!-- HOLDER JS  -->
+  <script src="../bower_components/holderjs/holder.js"></script>
+
+  <!-- GOOGLE MAPS API -->
+   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_HERE"></script>
+
   <!-- CSS -->
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
   <!-- <link rel="stylesheet" href="style.css"> -->
 
   <!-- JAVASCRIPT -->
-  <script src=""></script>
-
-
+  <script src="../bower_components/modernizr/bin/modernizr"></script>
+  <script src="../bower_components/jquery/jquery.js"></script>
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/angular-route/angular-route.js"></script>
+  <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
 </head>
 <body>
+<div class="container">
+  <!-- MAP AND SIDE PANEL -->
+  <div class="row content">
+    <!-- GOOGLE MAP  -->
+    <div class="col-md-7">
+      <div id="map">
+        <img src="holder.js/645X645">
+      </div>
+    </div>
+    <!-- SIDE PANEL -->
+    <div class="col-md-5">
+      <div class="panel panel-default">
+        <!-- PANEL TITLE -->
+        <div class="panel-heading">
+          <h2 class="panel-title text-center">SOMETHING HERE</h2>
+        </div>
+        <!-- PANEL BODY -->
+        <div class="panel-body">
+          <!-- CREATE FORM - USING ANGULAR VALIDATIONS -->
+          <form action="">
+            <!-- TEXT BOXES AND OTHER USER INPUTS -->
+          </form>
+        </div>
+      </div>
+    </div>
 
+  </div>
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>FOOTER WILL GO HERE</p>
+  </div>
+</div>
 </body>
 </html>
