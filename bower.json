@@ -1,0 +1,16 @@
+{
+  "name": "map_app",
+  "description": "A MEAN stack app using Google Map API",
+  "authors": [
+    "Am Doyle"
+  ],
+  "homepage": "https://github.com/amdoyle/MapApp",
+  "dependencies": {
+    "angularjs-geolocation": "^0.1.1",
+    "angular-route": "^1.5.5",
+    "holderjs": "^2.9.3",
+    "bootstrap": "^3.3.6",
+    "modernizer": "^2.8.2",
+    "jquery": "^2.2.3"
+  }
+}

@@ -4,7 +4,7 @@
   "description": "A MEAN stack app using Google Map API",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "",
     "start": "node server.js"
   },
   "repository": {
@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/amdoyle/MapApp/issues"
   },
-  "homepage": "https://github.com/amdoyle/MapApp#readme"
+  "homepage": "https://github.com/amdoyle/MapApp#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "jsonwebtoken": "^6.2.0",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.14",
+    "morgan": "^1.7.0"
+  }
 }
