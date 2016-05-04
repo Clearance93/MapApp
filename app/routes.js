@@ -21,7 +21,8 @@ module.exports = function(app) {
   app.post('/users', function(req, res) {
     // create a new User based on the user schema (imported in the User var)
     // the info for the new User will be in the request body
-    var newuser = new User(req.body);
+    var info = req.body
+    var newuser = new User(info);
     // Saving the new user in the db
     newuser.save(function(err) {
       if(err)
@@ -29,7 +30,7 @@ module.exports = function(app) {
       /* if save function is successful return a responds with a JSON of the
       new user that was created from the contents of the request body
       */
-      res.json(req.body);
+      res.json(info);
     });
   });
 };
