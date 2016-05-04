@@ -25,9 +25,6 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
 
-app.get('/', function(req, res) {
-
-});
 
 // TELLING OUR SERVER TO LISTEN TO REQUESTS ====================================
 app.listen(port);
