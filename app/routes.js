@@ -7,7 +7,8 @@ module.exports = function(app) {
   // GET ROUTES ----------------------------------------------------------------
   // Retrieve records for all users in the db
   app.get('/users', function(req, res) {
-    var query = User,fund({});
+    //making a db query to find users
+    var query = User.find({});
     query.exec(function(err, users) {
       if(err)
         res.send(err);
