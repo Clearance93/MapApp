@@ -12,7 +12,7 @@ var UserSchema = new Schema({
     MongoDB requires coordinatres to be ordered in [Long, Lat], but Google maps
     requires that you log in [Lat, Long]
   -- IMPORTANT -- */
-  location: {type: [Number], required: true},t
+  location: {type: [Number], required: true},
   htmlverified: String,
   created_at: {type: Date, default: Date.now},
   updated_at: {type: Date, default: Date.now}
@@ -22,7 +22,7 @@ var UserSchema = new Schema({
 // .pre sets the pre-save logical
 UserSchema.pre('save', function(next) {
   now = new Date();
-  this.updated)at = now;
+  this.updated_at = now;
   if(!this.created_at) {
     this.created_at = now
   }
