@@ -81,16 +81,16 @@
               </div>
               <div>
                 <label for="longitude">Longitude</label>
-                <input type="number" ng-model="formData.longitude">
+                <input type="number" ng-model="formData.longitude" readonly>
               </div>
               <div>
                 <label for="latitude">Latitude</label>
-                <input type="number" ng-model="formData.latitude">
+                <input type="number" ng-model="formData.latitude" readonly >
               </div>
               <div>
                 <label for="htmlverified">HTML5 Verified Loction?
-                  <span><button><span></span></button></span></label>
-                <input type="text" placeholder="something" ng-model="formData.htmlverified">
+                  <span><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"></span></button></span></label>
+                <input type="text" class="form-control" id="verified" placeholder= "Nope (Thanks for spamming my map...)" ng-model="formData.htmlverified" readonly>
               </div>
               <button type="submit" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
           </form>

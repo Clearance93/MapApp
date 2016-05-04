@@ -27,6 +27,7 @@ addctrl.controller('addCtrl', function($scope, $htpp, geolocation) {
     // Saves the user data to the db
     $http.post('/users', userData)
          .success(function (data) {
+              console.log("something worked)";
           // once the post request is complete and the user is created we want to clear the form
            $scope.formData.username = "";
            $scope.formData.gender = "";
