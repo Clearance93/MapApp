@@ -45,50 +45,50 @@
         <!-- PANEL BODY -->
         <div class="panel-body">
           <!-- CREATE FORM - USING ANGULAR VALIDATIONS -->
-          <form name="addFrom" novalidate>
+          <form name="addFrom" ng-controller="addCtrl" novalidate>
             <!-- TEXT BOXES AND OTHER USER INPUTS -->
               <div class="form-group">
                 <span class="badge">All fields required</span> <br />
                 <label for="username">Username: </label>
-                <input type="text" name="username" placeholder="CanadianPride">
+                <input type="text" name="username" placeholder="CanadianPride" ng-model="formData.username">
               </div>
               <label for="gender">Gender:</label>
               <div>
                 <label>
-                  <input type="radio" name="gender" value="male">
+                  <input type="radio" name="gender" value="male" ng-model="formData.gender">
                   Male
                 </label>
                 <label>
-                  <input type="radio" name="gender" value="female">
+                  <input type="radio" name="gender" value="female" ng-model="formData.gender">
                   Female
                 </label>
                 <label>
-                  <input type="radio" name="gender" value="other">
+                  <input type="radio" name="gender" value="other" ng-model="formData.gender">
                   Other
                 </label>
               </div>
               <div>
                 <label for="age">Age:</label>
-                <input type="number" name="age">
+                <input type="number" name="age" ng-model="formData.age">
               </div>
               <div>
                 <label for="favlang">Favourite Langauge:</label>
-                <input type="text" name="favlang" placeholder="Pirate">
+                <input type="text" name="favlang" placeholder="Pirate" ng-model="formData.favlang">
               </div>
               <div>
                 <label for="longitude">Longitude</label>
-                <input type="number">
+                <input type="number" ng-model="formData.longitude">
               </div>
               <div>
                 <label for="latitude">Latitude</label>
-                <input type="number">
+                <input type="number" ng-model="formData.latitude">
               </div>
               <div>
                 <label for="htmlverified">HTML5 Verified Loction?
                   <span><button><span></span></button></span></label>
-                <input type="text" placeholder="something">
+                <input type="text" placeholder="something" ng-model="formData.htmlverified">
               </div>
-              <button type="submit">Submit</button>
+              <button type="submit" ng-disabled="addForm.$invalid">Submit</button>
           </form>
         </div>
       </div>
