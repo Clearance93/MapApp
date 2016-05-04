@@ -8,13 +8,18 @@ var UserSchema = new Schema({
   gender: {type: String, required: true},
   age: {type: Number, required: true},
   favlang: {type: String, required: true},
-  location: {type: [Number], required: true},//going to record long/lat
+  /* -- IMPORTANT --
+    MongoDB requires coordinatres to be ordered in [Long, Lat], but Google maps
+    requires that you log in [Lat, Long]
+  -- IMPORTANT -- */
+  location: {type: [Number], required: true},t
   htmlverified: String,
   created_at: {type: Date, default: Date.now},
   updated_at: {type: Date, default: Date.now}
 
 })
-// Set created_at to equal the current time
+// Set created_at to equal the current time.
+// .pre sets the pre-save logical
 UserSchema.pre('save', function(next) {
   now = new Date();
   this.updated)at = now;
@@ -24,9 +29,17 @@ UserSchema.pre('save', function(next) {
   next();
 });
 
-// Indexes the UserSchema in 2dsphere format - this is critical for running proximity searches)
+// Indexes the UserSchema in 2dsphere format (this is critical for running proximity searches)
+ // 2dsphere index supports queries that calculate geometries on an earth-like sphere.
+ // supports queries for intersection and proximity
+ // this index is needed to run the nessassary queries (as highligted above)
 UserSchema.index({ location: '2dsphere'});
 
 //  Exports the UserSchema for use elesewhere.
 // Sets the MongoDB collection to be used as "app-users"
+/* -- IMPORTANT --
+The collection needs to be exported for us to use it. Also, we've named the
+collection 'app-user' but Mongoose will add an extra letter 's' when creating
+the collection
+-- IMPORTANT -- */
 module.exports = mongoose.model('app-user', UserSchema);
