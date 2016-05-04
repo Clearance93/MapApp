@@ -11,6 +11,9 @@ var port = process.env.PORT || 8080;
 // CREATING SERVER USING EXPRESS------------------------------------------------
 var app = express();
 
+// DEV DB ----------------------------------------------------------------------
+mongoose.connect('mongodb://localhost/GoogleMapApp');
+
 // CONFIG ======================================================================
 // SERVE STATIC FILES FROM PUBLIC FOLDER & BOWER FOLDERS --------------------
 app.use(express.static(__dirname + '/public'));
