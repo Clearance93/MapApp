@@ -3,12 +3,13 @@ and 'gservice'. 'gservice' is a factory we created to handel placing the data
 on the map. Since this needs to happen when we create a new user, our conntroller
 needs to be aware of this factory*/
 var addCtrl = angular.module('addCtrl', ['geolocation', 'gservice']);
-addCtrl.controller('addCtrl', function($scope, $http, geolocation) {
+addCtrl.controller('addCtrl', function($scope, $http, geolocation, gservice) {
   // Intialize Variables
   $scope.formData = {};
   var coords = {};
   var lat = 0;
   var long = 0;
+
 
   // Set inital coordinates to the Toronto
   $scope.formData.latitude = 43.6532;
@@ -37,7 +38,7 @@ addCtrl.controller('addCtrl', function($scope, $http, geolocation) {
            $scope.formData.age = "";
            $scope.formData.favlang = "";
           // calling out gservice.refresh to update the map with the new marker
-           gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
+          gservice.refresh($scope.formData.latitude, $scope.formData.longitude)
          })
 
          .error(function(data) {

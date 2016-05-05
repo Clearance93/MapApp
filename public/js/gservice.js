@@ -45,7 +45,7 @@ angular.module('gservice', [])
 
           // PRIVATE INNER FUNCTIONS -------------------------------------------
           // Convert the locations holder
-          var convertToMapPoints = function(reponse){
+          var convertToMapPoints = function(response){
             // Clear the locations holder
             var location = [];
 
@@ -67,12 +67,12 @@ angular.module('gservice', [])
                 latlong: new google.maps.LatLng(user.location[1], user.location[0]),
                 message: new google.maps.InfoWindow({
                   content: contentString,
-                  maxWidth: 320
+                  maxWidth: 320,
                 }),
                 username: user.username,
                 gender: user.gender,
                 age: user.age,
-                favlang: user.favlang
+                favlang: user.favlang,
               });
             }
             /* This returns locations, which is now an array populated with
@@ -87,11 +87,13 @@ angular.module('gservice', [])
             var myLatLng = {lat: selectedLat, lng: selectedLong};
 
             // If map has not been created already...
+            console.log("what?")
             if(!map){
+              console.log("map created")
               // This creates a new map and places it in the index.html
               var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 3,
-                center: myLatLng
+                center: myLatLng,
               });
             }
 
@@ -117,16 +119,15 @@ angular.module('gservice', [])
             var marker = new google.maps.Marker({
               position: initialLocation,
               animation: google.maps.Animation.BOUNCE,
-              map: map;
-              icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+              map: map,
+              icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
             });
             lastMarker = marker;
           };
 
           // Refresh the page upon window load and calls the refresh function (defined above)
           // Use the initial latitude and longitude
-          google.maps.event.addDomlistener(window, 'load',
-            googleMapService.refresh(sleectedLat, selectedLong));
-
+          google.maps.event.addDomListener(window, 'load',
+            googleMapService.refresh(selectedLat, selectedLong));
           return googleMapService;
-       });
+        });
