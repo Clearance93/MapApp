@@ -1,5 +1,8 @@
-//  Creates the addCtrl and Controller - it has one dependency on 'gelocation'
-var addCtrl = angular.module('addCtrl', ['geolocation']);
+/*  Creates the addCtrl and Controller - it has one dependency on 'gelocation'
+and 'gservice'. 'gservice' is a factory we created to handel placing the data
+on the map. Since this needs to happen when we create a new user, our conntroller
+needs to be aware of this factory*/
+var addCtrl = angular.module('addCtrl', ['geolocation', 'gservice']);
 addCtrl.controller('addCtrl', function($scope, $http, geolocation) {
   // Intialize Variables
   $scope.formData = {};
