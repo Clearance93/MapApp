@@ -35,4 +35,42 @@ angular.module('gservice', [])
             initialize(latitude, longitude);
           }).error(function(){});
         };
+
+
+          // PRIVATE INNER FUNCTIONS -------------------------------------------
+          // Convert the locations holder
+          var convertToMapPoints = function(reponse){
+            // Clear the locations holder
+            var location = [];
+
+            // Loop through all of the JSOn entries provided in the response
+            for(var i = 0; i < response.length; i++){
+              var user = response[i];
+              // create popup window for each record
+              var contentString =
+              '<p><b>Username</b>: ' + user.username +
+              '<br><b>Age</b>: ' + user.age +
+              '<br><b>Gender</b>: ' + user.gender +
+              '<br><b>Favourite Lanaguage</b>: ' + user.favlang +
+              '</p>';
+              // Converts each of the JSON reocrds into Google Maps Location formate
+              // Note: [Lat, Lng] format
+              locations.push({
+                latlong: new google.maps.LatLng(user.location[1], user.location[0]),
+                message: new google.maps.InfoWindow({
+                  content: contentString,
+                  maxWidth: 320
+                }),
+                username: user.username,
+                gender: user.gender,
+                age: user.age,
+                favlang: user.favlang
+              });
+            }
+            /* This returns locations, which is now an array populated with
+            records in Google Maps format*/
+            return locations;
+          };
+
+          
        });
