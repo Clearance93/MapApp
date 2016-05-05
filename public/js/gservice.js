@@ -72,5 +72,37 @@ angular.module('gservice', [])
             return locations;
           };
 
-          
+          // Initialize the map
+          var initialize = function(latitude, longitude) {
+
+            // Uses the selected lat, long as starting point
+            var myLatLng = {lat: selectedLat, lng: selectedLong};
+
+            // If map has not been created already...
+            if(!map){
+              // This creates a new map and places it in the index.html
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 3,
+                center: myLatLng
+              });
+            }
+
+            // Loop through each location in the array and place a maker
+            locations.forEach(function(n, i){
+              var marker = new google.maps.Marker({
+                position: n.latlon,
+                map: map,
+                title: "Big Map",
+                icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+              });
+
+              // For each maker created, add an event listener that checks for click events
+              google.maps.event.addListener(marker, 'click', function(eventHandler){
+                // When the marker is cliekc, it will open the slected marker's message
+                currentSelectedMarker = n;
+                n.message.open(map, marker);
+              });
+
+            });
+          };
        });
