@@ -36,7 +36,10 @@ addCtrl.controller('addCtrl', function($scope, $http, geolocation) {
            $scope.formData.gender = "";
            $scope.formData.age = "";
            $scope.formData.favlang = "";
+          // calling out gservice.refresh to update the map with the new marker
+           gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
          })
+
          .error(function(data) {
            console.log('Error: ' + data);
          });
