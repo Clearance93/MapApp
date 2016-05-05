@@ -4,19 +4,25 @@ angular.module('gservice', [])
        .factory('gservice', function($http) {
 
         // Initialize Variables-------------------------------------------------
-        // Service our factory will return
+        /* googleMapService is an object and it will hold the refresh function
+        that we will use to build/rebuild our map */
         var googleMapService = {};
 
-        // Array of locations obtained for API call
+        /* Array of locations obtained for API call. Below is a function to
+        convert our collected lat/lng data to the Google format - which will be
+        stored in this array */
         var locations = [];
 
-        // Selected Location (initialize to center of America)
+        /* Selected Location (initialize to Toronto), this will hold the
+        specific location we are looking at during any given point. */
         var selectedLat = 43.6532;
         var selectedLong= -79.3832;
 
-        // FUNCTIONS------------------------------------------------------------
-        // Refresh the Map with new data
-        // Function will take new latitude and longitude coordinates
+        // FUNCTIONS============================================================
+
+        /* Refresh the Map with new data. This function will take new latitude and
+        longitude coordinates and will refresh the map with this info. Note: this
+        function will be running as soon as the window loads*/
         googleMapService.refresh = function(latitude, longitude) {
           // Clears the holding array of locations
           locations = [];
@@ -28,10 +34,10 @@ angular.module('gservice', [])
           // Perform an AJAX call to get all the records in the db
           $http.get('/users').success(function(response){
 
-            // Convert the results into Google Map Format
+            // Convert the results form the AJAX call into Google Map Format(function for this defined below)
             locations = convertToMapPoints(response);
 
-            // Then initialize the map
+            // Then initialize the map with the initialize function (defined below)
             initialize(latitude, longitude);
           }).error(function(){});
         };
@@ -43,7 +49,9 @@ angular.module('gservice', [])
             // Clear the locations holder
             var location = [];
 
-            // Loop through all of the JSOn entries provided in the response
+            /* Loop through all of the JSON entries provided in the response
+            and creates an array of Google formated coordinates with the pop-up
+            message built in. */
             for(var i = 0; i < response.length; i++){
               var user = response[i];
               // create popup window for each record
@@ -53,8 +61,8 @@ angular.module('gservice', [])
               '<br><b>Gender</b>: ' + user.gender +
               '<br><b>Favourite Lanaguage</b>: ' + user.favlang +
               '</p>';
-              // Converts each of the JSON reocrds into Google Maps Location formate
-              // Note: [Lat, Lng] format
+              /* Converts (and push into our locations array) each of the JSON
+              reocrds into Google Maps Location formate Note: [Lat, Lng] format */
               locations.push({
                 latlong: new google.maps.LatLng(user.location[1], user.location[0]),
                 message: new google.maps.InfoWindow({
@@ -72,7 +80,7 @@ angular.module('gservice', [])
             return locations;
           };
 
-          // Initialize the map
+          // Initialize a generic google map (this will be called from the refresh function)
           var initialize = function(latitude, longitude) {
 
             // Uses the selected lat, long as starting point
@@ -87,7 +95,7 @@ angular.module('gservice', [])
               });
             }
 
-            // Loop through each location in the array and place a maker
+            // Loop through each location in the array and place a maker on our map
             locations.forEach(function(n, i){
               var marker = new google.maps.Marker({
                 position: n.latlon,
@@ -115,7 +123,7 @@ angular.module('gservice', [])
             lastMarker = marker;
           };
 
-          // Refresh the page upon window load
+          // Refresh the page upon window load and calls the refresh function (defined above)
           // Use the initial latitude and longitude
           google.maps.event.addDomlistener(window, 'load',
             googleMapService.refresh(sleectedLat, selectedLong));
