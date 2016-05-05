@@ -16,7 +16,7 @@ angular.module('gservice', [])
         /* Selected Location (initialize to Toronto), this will hold the
         specific location we are looking at during any given point. */
         var selectedLat = 43.6532;
-        var selectedLong= -79.3832;
+        var selectedLong = -79.3832;
 
         // FUNCTIONS============================================================
 
@@ -47,7 +47,7 @@ angular.module('gservice', [])
           // Convert the locations holder
           var convertToMapPoints = function(response){
             // Clear the locations holder
-            var location = [];
+            var locations = [];
 
             /* Loop through all of the JSON entries provided in the response
             and creates an array of Google formated coordinates with the pop-up
@@ -86,10 +86,8 @@ angular.module('gservice', [])
             // Uses the selected lat, long as starting point
             var myLatLng = {lat: selectedLat, lng: selectedLong};
 
-            // If map has not been created already...
-            console.log("what?")
+            // If map has not been created already..
             if(!map){
-              console.log("map created")
               // This creates a new map and places it in the index.html
               var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 3,
@@ -99,6 +97,7 @@ angular.module('gservice', [])
 
             // Loop through each location in the array and place a maker on our map
             locations.forEach(function(n, i){
+              console.log("in loop");
               var marker = new google.maps.Marker({
                 position: n.latlon,
                 map: map,
@@ -107,7 +106,7 @@ angular.module('gservice', [])
               });
 
               // For each maker created, add an event listener that checks for click events
-              google.maps.event.addListener(marker, 'click', function(eventHandler){
+              google.maps.event.addListener(marker, 'click', function(e){
                 // When the marker is cliekc, it will open the slected marker's message
                 currentSelectedMarker = n;
                 n.message.open(map, marker);
