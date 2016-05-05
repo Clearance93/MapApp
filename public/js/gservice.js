@@ -102,7 +102,23 @@ angular.module('gservice', [])
                 currentSelectedMarker = n;
                 n.message.open(map, marker);
               });
-
             });
+
+            // Set initial location as a bouncing red marker
+            var initialLocation = new google.maps.LatLng(latitude, longitude);
+            var marker = new google.maps.Marker({
+              position: initialLocation,
+              animation: google.maps.Animation.BOUNCE,
+              map: map;
+              icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+            });
+            lastMarker = marker;
           };
+
+          // Refresh the page upon window load
+          // Use the initial latitude and longitude
+          google.maps.event.addDomlistener(window, 'load',
+            googleMapService.refresh(sleectedLat, selectedLong));
+
+          return googleMapService;
        });
