@@ -33,4 +33,16 @@ module.exports = function(app) {
       res.json(info);
     });
   });
+
+  app.delete("/users/:user_id", function(req, res) {
+    User.remove({
+      _id: req.params.user_id
+    }, function(err, users) {
+      if(err)
+        res.send(err);
+      res.json(users);
+    });
+
+  });
+
 };
