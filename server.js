@@ -12,7 +12,10 @@ var port = process.env.PORT || 8080;
 var app = express();
 
 // DEV DB ----------------------------------------------------------------------
-mongoose.connect('mongodb://localhost/GoogleMapApp');
+// commented out function will drop database when the app is run. 
+ mongoose.connect('mongodb://localhost/GoogleMapApp'/*, function(){
+  mongoose.connection.db.dropDatabase();
+}*/);
 
 // CONFIG ======================================================================
 // SERVE STATIC FILES FROM PUBLIC FOLDER & BOWER FOLDERS --------------------
