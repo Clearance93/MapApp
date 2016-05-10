@@ -129,6 +129,9 @@ angular.module('gservice', [])
             lastMarker = redMarker;
           };
 
+          // Function for moving the map to the selected location
+          map.panTo(new google.maps.LatLng(latitude, longitude));
+
           // Refresh the page upon window load and calls the refresh function (defined above)
           // Use the initial latitude and longitude
           google.maps.event.addDomListener(window, 'load',
