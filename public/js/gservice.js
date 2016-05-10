@@ -18,6 +18,10 @@ angular.module('gservice', [])
         var selectedLat = 43.6532;
         var selectedLong = -79.3832;
 
+        // This will handle clicks and location selection
+        googleMapService.clickLat = 0;
+        googleMappService.clickLong = 0;
+
         // FUNCTIONS============================================================
 
         /* Refresh the Map with new data. This function will take new latitude and
