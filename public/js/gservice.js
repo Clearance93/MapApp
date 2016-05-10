@@ -52,19 +52,19 @@ angular.module('gservice', [])
             /* Loop through all of the JSON entries provided in the response
             and creates an array of Google formated coordinates with the pop-up
             message built in. */
-            for(var i = 0; i < response.length; i++){
+            for(var i= 0; i < response.length; i++){
               var user = response[i];
               // create popup window for each record
               var contentString =
               '<p><b>Username</b>: ' + user.username +
-              '<br><b>Age</b>: ' + user.age +
-              '<br><b>Gender</b>: ' + user.gender +
-              '<br><b>Favourite Lanaguage</b>: ' + user.favlang +
+              '<br /><b>Age</b>: ' + user.age +
+              '<br /><b>Gender</b>: ' + user.gender +
+              '<br /><b>Favourite Lanaguage</b>: ' + user.favlang +
               '</p>';
               /* Converts (and push into our locations array) each of the JSON
               reocrds into Google Maps Location formate Note: [Lat, Lng] format */
               locations.push({
-                latlong: new google.maps.LatLng(user.location[1], user.location[0]),
+                latlon: new google.maps.LatLng(user.location[1], user.location[0]),
                 message: new google.maps.InfoWindow({
                   content: contentString,
                   maxWidth: 320,
@@ -97,13 +97,13 @@ angular.module('gservice', [])
 
             // Loop through each location in the array and place a maker on our map
             locations.forEach(function(n, i){
-              console.log("in loop");
               var marker = new google.maps.Marker({
                 position: n.latlon,
                 map: map,
-                title: "Big Map",
-                icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                title: 'Big Map',
+                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
               });
+
 
               // For each maker created, add an event listener that checks for click events
               google.maps.event.addListener(marker, 'click', function(e){
@@ -115,13 +115,14 @@ angular.module('gservice', [])
 
             // Set initial location as a bouncing red marker
             var initialLocation = new google.maps.LatLng(latitude, longitude);
-            var marker = new google.maps.Marker({
+
+            var redMarker = new google.maps.Marker({
               position: initialLocation,
               animation: google.maps.Animation.BOUNCE,
               map: map,
-              icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+              icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
             });
-            lastMarker = marker;
+            lastMarker = redMarker;
           };
 
           // Refresh the page upon window load and calls the refresh function (defined above)

@@ -30,7 +30,7 @@ module.exports = function(app) {
       /* if save function is successful return a responds with a JSON of the
       new user that was created from the contents of the request body
       */
-      res.json(info);
+       res.json(info);
     });
   });
 
@@ -40,6 +40,7 @@ module.exports = function(app) {
     }, function(err, users) {
       if(err)
         res.send(err);
+
       res.json(users);
     });
 

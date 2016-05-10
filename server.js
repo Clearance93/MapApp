@@ -12,7 +12,7 @@ var port = process.env.PORT || 8080;
 var app = express();
 
 // DEV DB ----------------------------------------------------------------------
-// commented out function will drop database when the app is run. 
+// commented out function will drop database when the app is run.
  mongoose.connect('mongodb://localhost/GoogleMapApp'/*, function(){
   mongoose.connection.db.dropDatabase();
 }*/);
@@ -20,7 +20,7 @@ var app = express();
 // CONFIG ======================================================================
 // SERVE STATIC FILES FROM PUBLIC FOLDER & BOWER FOLDERS --------------------
 app.use(express.static(__dirname + '/public'));
-app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(morgan('dev')); // loggs each request that is made
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
