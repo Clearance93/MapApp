@@ -11,13 +11,12 @@
   <!-- HOLDER JS  -->
   <script src="../bower_components/holderjs/holder.js"></script>
 
-  <!-- GOOGLE MAPS API  - UPDATE WITH KEY INFO-->
+  <!-- GOOGLE MAPS API  - UPDATED WITH KEY INFO-->
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAocAbicuIJFds-lnXvzI-GJ434a7695T0"></script>
 
   <!-- CSS -->
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
-  <!-- <link rel="stylesheet" href="style.css"> -->
-
+  <!-- <link rel="stylesheet" href="style.css">  -->
   <!-- JAVASCRIPT -->
   <script src="../bower_components/modernizer/modernizr.js"></script>
   <script src="../bower_components/jquery/dist/jquery.js"></script>
@@ -32,6 +31,7 @@
 
 </head>
 <body ng-controller="addCtrl">
+
 <div class="container">
   <!-- MAP AND SIDE PANEL -->
   <div class="row content">
@@ -41,6 +41,7 @@
 
       </div>
     </div>
+
     <!-- SIDE PANEL -->
     <div class="col-md-5">
       <div class="panel panel-default">
@@ -55,7 +56,7 @@
              <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
              <div class="form-group">
                  <label for="username">Username <span class="badge">All fields required</span></label>
-                 <input type="text" name="username" class="form-control" id="username" placeholder="OldandGold" ng-model="formData.username" required>
+                 <input type="text" name="username" class="form-control" id="username" placeholder="Username" ng-model="formData.username" required>
              </div>
              <label class="radio control-label">Gender</label>
              <div class="radio">
@@ -82,7 +83,7 @@
              </div>
              <div class="form-group">
                  <label for="language">Favorite Language</label>
-                 <input type="text" class="form-control" name="favlang" id="language" placeholder="Fortran" ng-model="formData.favlang" required>
+                 <input type="text" class="form-control" name="favlang" id="language" placeholder="English" ng-model="formData.favlang" required>
              </div>
              <div class="form-group">
                  <label for="latitude">Latitude</label>

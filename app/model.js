@@ -24,17 +24,17 @@ UserSchema.pre('save', function(next) {
   now = new Date();
   this.updated_at = now;
   if(!this.created_at) {
-    this.created_at = now
+    this.created_at = now;
   }
   // this index is needed to run the nessassary queries (as highligted above)
   next();
 });
 
-UserSchema.index({ location: '2dsphere'});
 
 // Indexes the UserSchema in 2dsphere format (this is critical for running proximity searches)
- // 2dsphere index supports queries that calculate geometries on an earth-like sphere.
- // supports queries for intersection and proximity
+// 2dsphere index supports queries that calculate geometries on an earth-like sphere.
+// supports queries for intersection and proximity
+UserSchema.index({ location: '2dsphere'});
 
 //  Exports the UserSchema for use elesewhere.
 // Sets the MongoDB collection to be used as "app-users"

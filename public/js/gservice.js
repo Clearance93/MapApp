@@ -68,7 +68,7 @@ angular.module('gservice', [])
               /* Converts (and push into our locations array) each of the JSON
               reocrds into Google Maps Location formate Note: [Lat, Lng] format */
               locations.push({
-                latlon: new google.maps.LatLng(user.location[1], user.location[0]),
+                latlng: new google.maps.LatLng(user.location[1], user.location[0]),
                 message: new google.maps.InfoWindow({
                   content: contentString,
                   maxWidth: 320,
@@ -101,6 +101,7 @@ angular.module('gservice', [])
 
             // Loop through each location in the array and place a maker on our map
             locations.forEach(function(n, i){
+
               var marker = new google.maps.Marker({
                 position: n.latlng,
                 map: map,
