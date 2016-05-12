@@ -20,7 +20,7 @@ angular.module('gservice', [])
 
         // This will handle clicks and location selection
         googleMapService.clickLat = 0;
-        googleMappService.clickLong = 0;
+        googleMapService.clickLong = 0;
 
         // FUNCTIONS============================================================
 
@@ -127,18 +127,19 @@ angular.module('gservice', [])
               icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
             });
             lastMarker = redMarker;
-          };
+
 
           // Function for moving the map to the selected location
-          map.panTo(new google.maps.LatLng(latitude, longitude));
+          map.panTo(new google.maps.LatLng(latitude, longitude) );
 
           // Function to move the map when user clicks - this will move the red bouncing marker
           google.maps.event.addListener(map, 'click', function(e){
+
             var redMarker = new google.maps.Marker({
-              position = e.LatLng,
+              position: e.latLng,
               animation: google.maps.Animation.BOUNCE,
               map: map,
-              icon: http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+              icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
             });
             //  When a new location is slected the old red marker is removed
             if(lastMarker){
@@ -146,8 +147,9 @@ angular.module('gservice', [])
             }
             // Create a new red bound marker and moves to the new location
             lastMarker = redMarker;
-            map.panTo(marker.position);
+            map.panTo(lastMarker.position);
           });
+        };
           // Refresh the page upon window load and calls the refresh function (defined above)
           // Use the initial latitude and longitude
           google.maps.event.addDomListener(window, 'load',
