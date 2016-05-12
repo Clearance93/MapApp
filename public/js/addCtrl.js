@@ -15,7 +15,21 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
   $scope.formData.latitude = 43.6532;
   $scope.formData.longitude = -79.3832;
 
+  // Get User's actual coordinates based on HTML5 at window load
+  geolocation.getLocation().then(function(data){
 
+    // Set the latitude and longitude equal to the HTML5 coordinates
+    coords = {lat:data.coords.latitude, long:data.coords.longitude};
+
+    // Display coordinates in location textboxes rounded to three
+    $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
+    $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
+
+    // Display a message confiming that the coordinates are verified
+    $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
+
+    gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
+  })
   // FUNCTIONS =================================================================
   // Get coordinates based on mouse click. When a click event is detected.....
   $rootScope.$on("clicked", function(){
@@ -26,7 +40,7 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
       $scope.formData.htmlverified = "Nope (thanks for spanning my map....)"
     });
   });
-  
+
   // Creates a new user based on the form
   $scope.createUser = function() {
     // Grabs all of the text box fields
