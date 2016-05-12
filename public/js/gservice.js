@@ -1,7 +1,7 @@
 // Creates the gservice factory.
 // This will be the primary means by which we interact with Google Maps
 angular.module('gservice', [])
-       .factory('gservice', function($http) {
+       .factory('gservice', function($rootScope, $http) {
 
         // Initialize Variables-------------------------------------------------
         /* googleMapService is an object and it will hold the refresh function
@@ -32,8 +32,8 @@ angular.module('gservice', [])
           locations = [];
 
           // Set the selected lat and long equal to the ones provided on the refresh() call
-          selectedLat = latitude;
-          selectedLong = longitude;
+          selectedLat = parseFloat(latitude);
+          selectedLong = parseFloat(longitude);
 
           // Perform an AJAX call to get all the records in the db
           $http.get('/users').success(function(response){
@@ -102,7 +102,7 @@ angular.module('gservice', [])
             // Loop through each location in the array and place a maker on our map
             locations.forEach(function(n, i){
               var marker = new google.maps.Marker({
-                position: n.latlon,
+                position: n.latlng,
                 map: map,
                 title: 'Big Map',
                 icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
@@ -148,6 +148,11 @@ angular.module('gservice', [])
             // Create a new red bound marker and moves to the new location
             lastMarker = redMarker;
             map.panTo(lastMarker.position);
+
+            // Update th broadcasted vars so the form will be updated
+            googleMapService.clickLat = redMarker.getPosition().lat();
+            googleMapService.clickLong = redMarker.getPosition().lat();
+            $rootScope.$broadcast("clicked");
           });
         };
           // Refresh the page upon window load and calls the refresh function (defined above)

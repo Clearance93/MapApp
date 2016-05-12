@@ -3,7 +3,7 @@ and 'gservice'. 'gservice' is a factory we created to handel placing the data
 on the map. Since this needs to happen when we create a new user, our conntroller
 needs to be aware of this factory*/
 var addCtrl = angular.module('addCtrl', ['geolocation', 'gservice']);
-addCtrl.controller('addCtrl', function($scope, $http, geolocation, gservice) {
+addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, gservice) {
   // Intialize Variables
   $scope.formData = {};
   var coords = {};
@@ -17,6 +17,16 @@ addCtrl.controller('addCtrl', function($scope, $http, geolocation, gservice) {
 
 
   // FUNCTIONS =================================================================
+  // Get coordinates based on mouse click. When a click event is detected.....
+  $rootScope.$on("clicked", function(){
+    //  Run the gservice functions associated with identifying coordinates
+    $scope.$apply(function(){
+      $scope.formData.latitude = parseFloat(gservice.clickLat).toFixed(3);
+      $scope.formData.longitude = parseFloat(gservice.clickLong).toFixed(3);
+      $scope.formData.htmlverified = "Nope (thanks for spanning my map....)"
+    });
+  });
+  
   // Creates a new user based on the form
   $scope.createUser = function() {
     // Grabs all of the text box fields
