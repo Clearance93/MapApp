@@ -15,6 +15,7 @@ var app = express();
 // commented out function will drop database when the app is run.
  mongoose.connect('mongodb://localhost/GoogleMapApp'/*, function(){
   mongoose.connection.db.dropDatabase();
+  console.log("Database reset. If this is production mode you fucked up")
 }*/);
 
 // CONFIG ======================================================================
