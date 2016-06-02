@@ -7,6 +7,7 @@ module.exports = function(app) {
   // GET ROUTES ----------------------------------------------------------------
   // Retrieve records for all users in the db
   app.get('/users', function(req, res) {
+    console.log("get request was successful");
     //making a db query to find users
     var query = User.find({});
     query.exec(function(err, users) {
@@ -14,11 +15,12 @@ module.exports = function(app) {
         res.send(err);
       //Respond with JSON of all users in our system
       res.json(users);
-    });
+    })
   });
   // POST ROUTES ---------------------------------------------------------------
   // Post request to save new users in our db
   app.post('/users', function(req, res) {
+    console.log("post was successfull");
     // create a new User based on the user schema (imported in the User var)
     // the info for the new User will be in the request body
     var info = req.body
@@ -33,6 +35,40 @@ module.exports = function(app) {
        res.json(info);
     });
   });
+
+  // This will retrieve JSON records for all users who meet a certian set of query conditions
+  // Retrieves JSON records for all users who meet a certain set of query conditions
+app.post('/query/', function(req, res){
+
+    // Grab all of the query parameters from the body.
+    var lat             = req.body.latitude;
+    var long            = req.body.longitude;
+    var distance        = req.body.distance;
+
+    // Opens a generic Mongoose Query. Depending on the post body we will...
+    var query = User.find({});
+
+    // ...include filter by Max Distance (converting miles to meters)
+    if(distance){
+
+        // Using MongoDB's geospatial querying features. (Note how coordinates are set [long, lat]
+        query = query.where('location').near({ center: {type: 'Point', coordinates: [long, lat]},
+
+            // Converting meters to miles. Specifying spherical geometry (for globe)
+            maxDistance: distance * 1609.34, spherical: true});
+    }
+
+    // ... Other queries will go here ...
+
+    // Execute Query and Return the Query Results
+    query.exec(function(err, users){
+        if(err)
+            res.send(err);
+
+        // If no errors, respond with a JSON of all users that meet the criteria
+        res.json(users);
+    });
+});
 
   app.delete("/users/:user_id", function(req, res) {
     User.remove({
