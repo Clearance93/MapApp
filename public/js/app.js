@@ -1,6 +1,6 @@
 // Declaring the initial angular module "GoogleMapApp"
 // The Module will grab other controllers and services
-var app = angular.module('map_app', ['addCtrl', 'geolocation', 'gservice', 'ngRoute'])
+var app = angular.module('map_app', ['addCtrl', 'queryCtrl', 'geolocation', 'gservice', 'ngRoute'])
 
   //Configures Angular routing -- showing the relevant view and controller when needed
   .config(function($routeProvider){
@@ -10,6 +10,7 @@ var app = angular.module('map_app', ['addCtrl', 'geolocation', 'gservice', 'ngRo
       templateUrl: 'partials/addForm.html',
       //Find teammates control panel
     }).when('/find', {
+      controller: 'queryCtrl',
       templateUrl: 'partials/queryForm.html',
 
       //All else forward to the Joing Team Control Panel
