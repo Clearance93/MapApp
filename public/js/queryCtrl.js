@@ -62,11 +62,14 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
              console.log(queryResults);
             // count the number of records retrieved for the panel-footer
              $scope.queryCount = queryResults.length;
+             gservice.refresh(queryBody.latitude, queryBody.longitude, queryResults);
+
            })
            .error(function(queryResults){
              console.log('Error ' + queryResults);
            })
 
   };
+
 
 });

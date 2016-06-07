@@ -7,7 +7,6 @@ angular.module('gservice', [])
         /* googleMapService is an object and it will hold the refresh function
         that we will use to build/rebuild our map */
         var googleMapService = {};
-
         /* Array of locations obtained for API call. Below is a function to
         convert our collected lat/lng data to the Google format - which will be
         stored in this array */
@@ -22,29 +21,40 @@ angular.module('gservice', [])
         googleMapService.clickLat = 0;
         googleMapService.clickLong = 0;
 
+        var lastMarker;
+        var currentSelectedMarker;
+
         // FUNCTIONS============================================================
 
         /* Refresh the Map with new data. This function will take new latitude and
         longitude coordinates and will refresh the map with this info. Note: this
         function will be running as soon as the window loads*/
-        googleMapService.refresh = function(latitude, longitude) {
+        googleMapService.refresh = function(latitude, longitude, filteredResults) {
           // Clears the holding array of locations
           locations = [];
 
           // Set the selected lat and long equal to the ones provided on the refresh() call
           selectedLat = parseFloat(latitude);
           selectedLong = parseFloat(longitude);
+            // if filtered results are provided in the refresh call
+            if(filteredResults) {
+              // convert the filtered results into map points
+              locations = convertToMapPoints(filteredResults);
+              // then, initialize the map -- noting that a filter was used
+              initialize(latitude, longitude, true);
+              // if no filter is provided in the refrsh call
+            } else {
+              //Perform an AJAZ call to get all the records in the db
+              $http.get('/users').success(function(response){
+                // then convert the results into map points
+                locations = convertToMapPoints(response);
+                //then initialize the map -- noting that no filter was uesed.
+                initialize(latitude, longitude, false);
+              }).error(function(){});
 
-          // Perform an AJAX call to get all the records in the db
-          $http.get('/users').success(function(response){
-
-            // Convert the results form the AJAX call into Google Map Format(function for this defined below)
-            locations = convertToMapPoints(response);
-
-            // Then initialize the map with the initialize function (defined below)
-            initialize(latitude, longitude);
-          }).error(function(){});
+            }
         };
+
 
 
           // PRIVATE INNER FUNCTIONS -------------------------------------------
@@ -85,7 +95,7 @@ angular.module('gservice', [])
           };
 
           // Initialize a generic google map (this will be called from the refresh function)
-          var initialize = function(latitude, longitude) {
+          var initialize = function(latitude, longitude, filter) {
 
             // Uses the selected lat, long as starting point
             var myLatLng = {lat: selectedLat, lng: selectedLong};
@@ -99,6 +109,14 @@ angular.module('gservice', [])
               });
             }
 
+            // if there is a filter then use the yellow market if not use the blue
+            if(filter){
+              icon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+            } else {
+              icon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+            }
+
+
             // Loop through each location in the array and place a maker on our map
             locations.forEach(function(n, i){
 
@@ -106,9 +124,8 @@ angular.module('gservice', [])
                 position: n.latlng,
                 map: map,
                 title: 'Big Map',
-                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                icon: icon
               });
-
 
               // For each maker created, add an event listener that checks for click events
               google.maps.event.addListener(marker, 'click', function(e){
@@ -131,7 +148,7 @@ angular.module('gservice', [])
 
 
           // Function for moving the map to the selected location
-          map.panTo(new google.maps.LatLng(latitude, longitude) );
+          map.panTo(new google.maps.LatLng(latitude, longitude));
 
           // Function to move the map when user clicks - this will move the red bouncing marker
           google.maps.event.addListener(map, 'click', function(e){
@@ -152,7 +169,7 @@ angular.module('gservice', [])
 
             // Update th broadcasted vars so the form will be updated
             googleMapService.clickLat = redMarker.getPosition().lat();
-            googleMapService.clickLong = redMarker.getPosition().lat();
+            googleMapService.clickLong = redMarker.getPosition().lng();
             $rootScope.$broadcast("clicked");
           });
         };
